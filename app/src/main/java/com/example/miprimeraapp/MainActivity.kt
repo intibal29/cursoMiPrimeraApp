@@ -7,6 +7,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.Recycler
 
@@ -16,6 +17,8 @@ class MainActivity : AppCompatActivity() {
     lateinit var etText: EditText 
     lateinit var rvText: RecyclerView
     var tasks = mutableListOf<String>()
+
+    lateinit var adapter:TaskAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -26,7 +29,18 @@ class MainActivity : AppCompatActivity() {
     private fun iniUi() {
         initView()//instanciar los valores
         initListeners()
+        initRecycleview()
     }
+
+    private fun initRecycleview() {
+        //configurar el recile view
+        rvText.layoutManager=LinearLayoutManager(this)
+        adapter = TaskAdapter(tasks)
+        rvText.adapter=adapter
+
+
+    }
+
     //listener
     private fun initListeners() {
        btnbutton.setOnClickListener(){
@@ -37,6 +51,10 @@ class MainActivity : AppCompatActivity() {
     private fun addTAsk() {
        val taskToAdd:String = etText.text.toString()
         tasks.add(taskToAdd) //añadir tareas
+        adapter.notifyDataSetChanged()
+        //limpiaar
+        etText.setText("")
+
     }
 
 

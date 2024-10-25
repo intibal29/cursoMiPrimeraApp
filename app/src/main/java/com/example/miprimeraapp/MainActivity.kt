@@ -11,6 +11,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.Recycler
+import com.example.miprimeraapp.TasksApplication.Companion.prefs
 
 @Suppress("UNREACHABLE_CODE")
 class MainActivity : AppCompatActivity() {
@@ -35,6 +36,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initRecycleview() {
+        tasks = prefs.getTasks()
         //configurar el recile view
         rvText.layoutManager=LinearLayoutManager(this)
         adapter = TaskAdapter(tasks){deleteTasks(it)}
@@ -45,6 +47,7 @@ class MainActivity : AppCompatActivity() {
 fun deleteTasks(position: Int){
     tasks.removeAt(position)
     adapter.notifyDataSetChanged()
+    prefs.saveTasks(tasks)
 }
     //listener
     private fun initListeners() {
@@ -56,6 +59,7 @@ fun deleteTasks(position: Int){
     private fun addTAsk() {
        val taskToAdd:String = etText.text.toString()
         tasks.add(taskToAdd) //añadir tareas
+        prefs.saveTasks(tasks) //sustituir la tarea
         adapter.notifyDataSetChanged()
         //limpiaar
         etText.setText("")

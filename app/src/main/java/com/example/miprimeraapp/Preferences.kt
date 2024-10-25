@@ -13,4 +13,8 @@ class Preferences (context: Context){
     fun saveTasks(tasks:List<String>){
         prefs.edit().putStringSet(TASKS, tasks.toSet()).apply() //guardar un valor en una clave
     }
+//recuperar informacion
+    fun getTasks():MutableList<String>{
+        return prefs.getStringSet(TASKS, emptySet<String>())?.toMutableList() ?: mutableListOf()//lo convierte en mutable
+    } //?: "anonimo" devuelve anonimo y !! asegura que no falla
 }

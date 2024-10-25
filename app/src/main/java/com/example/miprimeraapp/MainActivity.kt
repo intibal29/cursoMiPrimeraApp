@@ -15,6 +15,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var btnbutton:Button //variable button
     lateinit var etText: EditText 
     lateinit var rvText: RecyclerView
+    var tasks = mutableListOf<String>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -29,12 +30,13 @@ class MainActivity : AppCompatActivity() {
     //listener
     private fun initListeners() {
        btnbutton.setOnClickListener(){
-           addbutoon()
+           addTAsk()
        }
     }
 
-    private fun addbutoon() {
-       val taskToAdd: String = etText.text.toString()
+    private fun addTAsk() {
+       val taskToAdd:String = etText.text.toString()
+        tasks.add(taskToAdd) //añadir tareas
     }
 
 

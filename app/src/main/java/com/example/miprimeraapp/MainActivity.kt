@@ -1,5 +1,6 @@
 package com.example.miprimeraapp
 
+import android.icu.text.Transliterator.Position
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
@@ -35,12 +36,15 @@ class MainActivity : AppCompatActivity() {
     private fun initRecycleview() {
         //configurar el recile view
         rvText.layoutManager=LinearLayoutManager(this)
-        adapter = TaskAdapter(tasks)
+        adapter = TaskAdapter(tasks){deleteTasks(it)}
         rvText.adapter=adapter
 
 
     }
-
+fun deleteTasks(position: Int){
+    tasks.removeAt(position)
+    adapter.notifyDataSetChanged()
+}
     //listener
     private fun initListeners() {
        btnbutton.setOnClickListener(){
